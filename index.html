@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بحار — Bahaar · Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Playfair+Display:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0e2240;
+      --teal:    #3d8fa0;
+      --teal-lt: #5bb8cc;
+      --sky:     #b8dce8;
+      --sky-lt:  #d8eef5;
+      --sand:    #c4a882;
+      --sand-lt: #e8d8c0;
+      --crimson: #6b0911;
+      --cream:   #f5f0e8;
+      --white:   #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--navy);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── OCEAN BACKGROUND ── */
+    .ocean-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background: linear-gradient(
+        180deg,
+        #061828 0%,
+        #0e2d50 25%,
+        #144870 50%,
+        #1a6085 70%,
+        #0e2d50 100%
+      );
+    }
+
+    /* animated light rays */
+    .rays {
+      position: absolute; inset: 0; overflow: hidden;
+    }
+    .ray {
+      position: absolute;
+      top: -20%; left: 50%;
+      width: 2px; height: 120%;
+      background: linear-gradient(180deg, rgba(91,184,204,.18) 0%, transparent 100%);
+      transform-origin: top center;
+      animation: sway 8s ease-in-out infinite;
+    }
+    .ray:nth-child(1)  { left:15%; width:60px; opacity:.4; animation-duration:9s; }
+    .ray:nth-child(2)  { left:30%; width:40px; opacity:.25; animation-duration:11s; animation-delay:-3s; }
+    .ray:nth-child(3)  { left:50%; width:80px; opacity:.35; animation-duration:8s; animation-delay:-1s; }
+    .ray:nth-child(4)  { left:68%; width:50px; opacity:.28; animation-duration:12s; animation-delay:-5s; }
+    .ray:nth-child(5)  { left:82%; width:35px; opacity:.2;  animation-duration:10s; animation-delay:-2s; }
+    @keyframes sway {
+      0%,100% { transform: rotate(-6deg) scaleX(1); }
+      50%      { transform: rotate(6deg) scaleX(1.3); }
+    }
+
+    /* floating bubbles */
+    .bubbles { position: absolute; inset: 0; pointer-events: none; }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(91,184,204,.3);
+      animation: rise linear infinite;
+    }
+    .bubble:nth-child(1)  { width:6px;  height:6px;  left:10%; bottom:-10%; animation-duration:14s; animation-delay:0s; }
+    .bubble:nth-child(2)  { width:10px; height:10px; left:25%; bottom:-10%; animation-duration:18s; animation-delay:-4s; opacity:.6; }
+    .bubble:nth-child(3)  { width:4px;  height:4px;  left:42%; bottom:-10%; animation-duration:11s; animation-delay:-2s; }
+    .bubble:nth-child(4)  { width:8px;  height:8px;  left:60%; bottom:-10%; animation-duration:16s; animation-delay:-7s; opacity:.5; }
+    .bubble:nth-child(5)  { width:5px;  height:5px;  left:75%; bottom:-10%; animation-duration:13s; animation-delay:-3s; }
+    .bubble:nth-child(6)  { width:12px; height:12px; left:88%; bottom:-10%; animation-duration:20s; animation-delay:-9s; opacity:.4; }
+    @keyframes rise {
+      0%   { transform: translateY(0) translateX(0); opacity: 0; }
+      10%  { opacity: .7; }
+      90%  { opacity: .3; }
+      100% { transform: translateY(-110vh) translateX(30px); opacity: 0; }
+    }
+
+    /* ── WAVE STRIP ── */
+    .waves-wrap {
+      position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1;
+      pointer-events: none;
+    }
+    .wave-svg { display: block; width: 100%; }
+    .wave1 { animation: wave-move 10s linear infinite; }
+    .wave2 { animation: wave-move 14s linear infinite reverse; opacity:.5; }
+    @keyframes wave-move {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative; z-index: 2;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 60px 24px 160px;
+    }
+
+    /* ── LOGO / NET ── */
+    .logo-wrap {
+      position: relative;
+      width: 200px; height: 170px;
+      margin-bottom: 8px;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .net-svg { width: 100%; height: 100%; filter: drop-shadow(0 8px 24px rgba(0,0,0,.5)); }
+
+    /* ── BRAND NAME ── */
+    .brand {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .brand-arabic {
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: clamp(64px, 12vw, 110px);
+      font-weight: 600;
+      color: var(--sky-lt);
+      line-height: 1;
+      text-shadow: 0 4px 30px rgba(91,184,204,.4);
+      letter-spacing: -1px;
+      animation: fadeUp .9s ease both;
+    }
+    .brand-latin {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(13px, 2.5vw, 18px);
+      font-weight: 300;
+      letter-spacing: 0.55em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-top: 4px;
+      animation: fadeUp .9s .15s ease both;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex; align-items: center; gap: 16px;
+      margin: 0 auto 36px;
+      width: min(340px, 90%);
+      animation: fadeUp .9s .25s ease both;
+    }
+    .divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    }
+    .divider-diamond {
+      width: 10px; height: 10px;
+      background: var(--sand);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ── TAGLINE ── */
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 3.5vw, 26px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--sky-lt);
+      text-align: center;
+      max-width: 520px;
+      line-height: 1.55;
+      margin-bottom: 12px;
+      animation: fadeUp .9s .35s ease both;
+    }
+    .tagline-sub {
+      font-size: clamp(12px, 2vw, 15px);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(184,220,232,.6);
+      text-align: center;
+      margin-bottom: 52px;
+      animation: fadeUp .9s .4s ease both;
+    }
+
+    /* ── NOTIFY FORM ── */
+    .notify-box {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center;
+      margin-bottom: 64px;
+      animation: fadeUp .9s .5s ease both;
+    }
+    .notify-input {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-style: italic;
+      color: var(--cream);
+      background: rgba(14,34,64,.7);
+      border: 1px solid rgba(91,184,204,.4);
+      border-radius: 2px;
+      padding: 14px 22px;
+      width: 280px;
+      backdrop-filter: blur(6px);
+      outline: none;
+      transition: border-color .3s;
+    }
+    .notify-input::placeholder { color: rgba(184,220,232,.45); }
+    .notify-input:focus { border-color: var(--teal-lt); }
+    .notify-btn {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--sand);
+      border: none;
+      border-radius: 2px;
+      padding: 14px 32px;
+      cursor: pointer;
+      transition: background .3s, transform .2s;
+    }
+    .notify-btn:hover { background: var(--sand-lt); transform: translateY(-2px); }
+
+    /* ── STATS ROW ── */
+    .stats {
+      display: flex; gap: 48px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 0;
+      animation: fadeUp .9s .6s ease both;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: var(--teal-lt);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(184,220,232,.55);
+      margin-top: 4px;
+    }
+
+    /* ── SCROLL HINT ── */
+    .scroll-hint {
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+      z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: .5;
+      font-size: 10px; letter-spacing: .25em; text-transform: uppercase;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(180deg, var(--teal-lt), transparent);
+    }
+    @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
+
+    /* ── FOOTER ── */
+    .footer {
+      position: fixed; bottom: 20px; width: 100%;
+      text-align: center; z-index: 3;
+      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(184,220,232,.3);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(24px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* ── FISH SILHOUETTES ── */
+    .fish-layer { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+    .fish {
+      position: absolute;
+      opacity: .08;
+      animation: swim linear infinite;
+    }
+    .fish:nth-child(1) { top:22%; animation-duration:28s; animation-delay:0s; }
+    .fish:nth-child(2) { top:45%; animation-duration:35s; animation-delay:-10s; transform: scaleX(-1); }
+    .fish:nth-child(3) { top:65%; animation-duration:22s; animation-delay:-5s; }
+    @keyframes swim {
+      0%   { transform: translateX(-200px); }
+      100% { transform: translateX(calc(100vw + 200px)); }
+    }
+    .fish:nth-child(2) {
+      animation-name: swim-rev;
+    }
+    @keyframes swim-rev {
+      0%   { transform: scaleX(-1) translateX(-200px); }
+      100% { transform: scaleX(-1) translateX(calc(100vw + 200px)); }
+    }
+
+    /* responsive */
+    @media (max-width: 480px) {
+      .stats { gap: 28px; }
+      .notify-input { width: 100%; max-width: 320px; }
+      .notify-btn { width: 100%; max-width: 320px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Ocean background -->
+<div class="ocean-bg">
+  <div class="rays">
+    <div class="ray"></div><div class="ray"></div>
+    <div class="ray"></div><div class="ray"></div><div class="ray"></div>
+  </div>
+  <div class="bubbles">
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+  </div>
+</div>
+
+<!-- Fish silhouettes -->
+<div class="fish-layer">
+  <svg class="fish" width="120" height="50" viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="var(--teal-lt)" d="M100 25 C80 8 40 5 0 25 C40 45 80 42 100 25Z M100 25 L120 10 L115 25 L120 40Z"/>
+    <circle cx="20" cy="22" r="3" fill="var(--navy)"/>
+  </svg>
+  <svg class="fish" width="80" height="34" viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="var(--sky)" d="M100 25 C80 8 40 5 0 25 C40 45 80 42 100 25Z M100 25 L120 10 L115 25 L120 40Z"/>
+    <circle cx="20" cy="22" r="3" fill="var(--navy)"/>
+  </svg>
+  <svg class="fish" width="100" height="42" viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="var(--sand)" d="M100 25 C80 8 40 5 0 25 C40 45 80 42 100 25Z M100 25 L120 10 L115 25 L120 40Z"/>
+    <circle cx="20" cy="22" r="3" fill="var(--navy)"/>
+  </svg>
+</div>
+
+<!-- Wave strip -->
+<div class="waves-wrap" aria-hidden="true">
+  <svg class="wave-svg" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" style="height:80px">
+    <g class="wave1">
+      <path fill="rgba(61,143,160,.25)" d="M0 60 C180 20 360 100 540 60 C720 20 900 100 1080 60 C1260 20 1440 100 1620 60 C1800 20 1980 100 2160 60 L2160 120 L0 120Z"/>
+    </g>
+    <g class="wave2">
+      <path fill="rgba(91,184,204,.15)" d="M0 75 C200 35 400 115 600 75 C800 35 1000 115 1200 75 C1400 35 1600 115 1800 75 C2000 35 2200 115 2400 75 L2400 120 L0 120Z"/>
+    </g>
+  </svg>
+</div>
+
+<!-- Main content -->
+<main class="page">
+
+  <!-- Net logo -->
+  <div class="logo-wrap" role="img" aria-label="Bahaar fishing net logo">
+    <svg class="net-svg" viewBox="0 0 220 190" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- Left wing of net -->
+      <g stroke="#c4a882" stroke-width="2.2" stroke-linecap="round">
+        <!-- Outer arcs left -->
+        <path d="M110 170 C70 140 20 90 8 30"/>
+        <path d="M110 155 C75 128 32 82 22 30"/>
+        <path d="M110 140 C78 116 42 74 36 30"/>
+        <path d="M110 125 C82 104 54 68 50 30"/>
+        <path d="M110 110 C87 93 65 62 62 30"/>
+        <!-- Horizontal cross lines left -->
+        <path d="M8 30 C35 32 70 32 110 32"/>
+        <path d="M12 50 C38 52 72 52 110 52"/>
+        <path d="M18 70 C42 72 74 72 110 72"/>
+        <path d="M26 90 C48 92 76 92 110 92"/>
+        <path d="M38 110 C58 112 80 112 110 112"/>
+        <path d="M55 130 C70 132 88 132 110 132"/>
+        <path d="M78 150 C87 152 98 152 110 152"/>
+      </g>
+      <!-- Right wing of net -->
+      <g stroke="#c4a882" stroke-width="2.2" stroke-linecap="round">
+        <path d="M110 170 C150 140 200 90 212 30"/>
+        <path d="M110 155 C145 128 188 82 198 30"/>
+        <path d="M110 140 C142 116 178 74 184 30"/>
+        <path d="M110 125 C138 104 166 68 170 30"/>
+        <path d="M110 110 C133 93 155 62 158 30"/>
+        <!-- Horizontal cross lines right -->
+        <path d="M212 30 C185 32 150 32 110 32"/>
+        <path d="M208 50 C182 52 148 52 110 52"/>
+        <path d="M202 70 C178 72 146 72 110 72"/>
+        <path d="M194 90 C172 92 144 92 110 92"/>
+        <path d="M182 110 C162 112 140 112 110 112"/>
+        <path d="M165 130 C150 132 132 132 110 132"/>
+        <path d="M142 150 C133 152 122 152 110 152"/>
+      </g>
+      <!-- Diamond weight -->
+      <rect x="101" y="176" width="18" height="18" rx="1" fill="#0e2240" transform="rotate(45 110 185)"/>
+    </svg>
+  </div>
+
+  <!-- Brand name -->
+  <div class="brand">
+    <div class="brand-arabic">بحار</div>
+    <div class="brand-latin">Bahaar</div>
+  </div>
+
+  <!-- Decorative divider -->
+  <div class="divider" aria-hidden="true">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- Tagline -->
+  <p class="tagline">
+    Where the sea's bounty meets your doorstep
+  </p>
+  <p class="tagline-sub">Fresh from Bahrain's waters · Coming Soon</p>
+
+  <!-- Email signup -->
+  <div class="notify-box">
+    <input
+      class="notify-input"
+      type="email"
+      placeholder="Your email address"
+      aria-label="Email address for notification"
+    />
+    <button class="notify-btn" onclick="handleNotify(this)">Notify Me</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num" id="days">—</div>
+      <div class="stat-label">Days to Launch</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Fresh Catch</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24h</div>
+      <div class="stat-label">Delivery</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Scroll hint -->
+<div class="scroll-hint" aria-hidden="true">
+  <div class="scroll-line"></div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  © 2025 Bahaar · All rights reserved
+</footer>
+
+<script>
+  // Countdown to launch (90 days from now)
+  const launch = new Date();
+  launch.setDate(launch.getDate() + 90);
+  function updateDays() {
+    const diff = Math.ceil((launch - Date.now()) / 86400000);
+    document.getElementById('days').textContent = diff > 0 ? diff : '0';
+  }
+  updateDays();
+
+  // Notify button
+  function handleNotify(btn) {
+    const input = btn.previousElementSibling;
+    if (!input.value || !input.value.includes('@')) {
+      input.style.borderColor = '#6b0911';
+      input.placeholder = 'Please enter a valid email';
+      setTimeout(() => {
+        input.style.borderColor = '';
+        input.placeholder = 'Your email address';
+      }, 2500);
+      return;
+    }
+    btn.textContent = '✓ You\'re on the list!';
+    btn.style.background = 'var(--teal)';
+    btn.style.color = 'var(--white)';
+    btn.disabled = true;
+    input.disabled = true;
+    input.value = '';
+  }
+</script>
+
+</body>
+</html>
