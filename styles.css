@@ -16,7 +16,7 @@
   #pre.gone{opacity:0;visibility:hidden}
   .pre-logo-img{width:84px;height:auto;display:block;margin-bottom:14px}
   .pre-logo{font-family:'Zain','Outfit',sans-serif;font-weight:700;font-size:2.4rem;color:var(--teal);letter-spacing:.45em;text-transform:uppercase;}
-  .pre-ar{font-family:'Zain','Outfit',sans-serif;font-weight:600;font-size:4rem;color:var(--sand);opacity:.6;letter-spacing:.15em;text-transform:uppercase;}
+  .pre-ar{font-family:'Zain','Outfit',sans-serif;font-weight:600;font-size:4rem;color:var(--sand);opacity:.6;text-transform:uppercase;}
   .pre-bar{width:160px;height:1px;background:rgba(69,151,168,.15);overflow:hidden;border-radius:1px}
   .pre-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--sand));animation:pfill 2s ease forwards}
   @keyframes pfill{from{width:0}to{width:100%}}
