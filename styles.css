@@ -71,7 +71,7 @@
   #hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:100vh;padding:80px 6vw 0;gap:40px;overflow:visible;position:relative}
   #hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 22% 20%, rgba(69,151,168,.14), transparent 25%),radial-gradient(circle at 80% 18%, rgba(255,255,255,.06), transparent 18%);pointer-events:none;}
   .hero-left{padding-top:10px;z-index:10;max-width:560px}
-  .hero-right{display:flex;align-items:center;justify-content:center;position:relative;min-height:620px;z-index:10;overflow:visible;width:100%;margin:0 auto}
+  .hero-right{display:flex;align-items:center;justify-content:center;position:relative;min-height:620px;z-index:10;overflow:visible;width:150%;margin:0 auto}
   .hero-phones{position:relative;width:min(100%,360px);height:620px}
   .hero-phones::before{content:'';position:absolute;top:8%;left:5%;width:90%;height:86%;background:radial-gradient(circle at 50% 16%, rgba(69,151,168,.18), transparent 42%);pointer-events:none}
   .hero-phone-back{position:absolute;left:60px;top:60px;transform:rotate(8deg);opacity:.45;filter:blur(1.5px)}
@@ -521,7 +521,8 @@
   }
 
   .hero-right {
-    min-height: 520px;
+    width: 140%;
+    min-height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
